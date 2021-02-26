@@ -90,7 +90,7 @@ export default {
     StatsCard,
   },
   data: () => ({
-    apiURL: "http://moroccovid-19-api.herokuapp.com/",
+    apiURL: "https://moroccovid-19-api.herokuapp.com/",
     statsInProgress: true,
     statisticsExpectLength: 0,
     statistics: [],
