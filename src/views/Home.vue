@@ -1,6 +1,37 @@
 <template>
   <v-container class="home">
     <v-card class="my-2 transparent" elevation="0">
+      <v-card-title class="text-capitalize mb-2">today statistics</v-card-title>
+      <v-card-text>
+        <v-row v-if="statsInProgress" wrap>
+          <v-col
+            v-for="s in todayStatisticsExpectLength"
+            :key="s"
+            cols="12"
+            md="4"
+          >
+            <v-skeleton-loader max-width="" type="image"></v-skeleton-loader>
+          </v-col>
+        </v-row>
+        <v-row v-else wrap>
+          <v-col
+            v-for="stat in todayStatistics"
+            :key="stat.title"
+            cols="12"
+            md="4"
+          >
+            <stats-card
+              :color="stat.color"
+              :icon="stat.icon"
+              :title="stat.title"
+              :value="stat.value"
+              :elevation="5"
+            />
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
+    <v-card class="my-2 transparent" elevation="0">
       <v-card-title class="text-capitalize mb-2">statistics</v-card-title>
       <v-card-text>
         <v-row v-if="statsInProgress" wrap>
@@ -21,37 +52,6 @@
             cols="12"
             md="6"
             lg="3"
-          >
-            <stats-card
-              :color="stat.color"
-              :icon="stat.icon"
-              :title="stat.title"
-              :value="stat.value"
-              :elevation="5"
-            />
-          </v-col>
-        </v-row>
-      </v-card-text>
-    </v-card>
-    <v-card class="my-2 transparent" elevation="0">
-      <v-card-title class="text-capitalize mb-2">today statistics</v-card-title>
-      <v-card-text>
-        <v-row v-if="statsInProgress" wrap>
-          <v-col
-            v-for="s in todayStatisticsExpectLength"
-            :key="s"
-            cols="12"
-            md="4"
-          >
-            <v-skeleton-loader max-width="" type="image"></v-skeleton-loader>
-          </v-col>
-        </v-row>
-        <v-row v-else wrap>
-          <v-col
-            v-for="stat in todayStatistics"
-            :key="stat.title"
-            cols="12"
-            md="4"
           >
             <stats-card
               :color="stat.color"

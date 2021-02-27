@@ -22,6 +22,16 @@ let links = [
     component: "Home",
   },
   {
+    icon: "comment-medical",
+    title: "Preventive Advice",
+    to: "/advice",
+    component: () =>
+      import(
+        /* webpackChunkName: "Advice" */
+        `@/views/Advice.vue`
+      ),
+  },
+  {
     icon: "info-circle",
     title: "About",
     to: "/about",

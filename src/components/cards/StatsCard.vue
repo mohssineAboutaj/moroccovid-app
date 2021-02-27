@@ -10,14 +10,19 @@
       </v-col>
       <v-col cols="8" class="text-right">
         <h4 class="caption text-capitalize">{{ title }}</h4>
-        <h4 class="headline text-capitalize">{{ value }}</h4>
+        <h4 class="headline text-capitalize">
+          <VueJsCounter :start="0" :end="value" :duration="5000"></VueJsCounter>
+        </h4>
       </v-col>
     </v-row>
   </v-card>
 </template>
 
 <script>
+import VueJsCounter from "vue-js-counter";
+
 export default {
+  components: { VueJsCounter },
   data: () => ({
     iconMargin: 1,
   }),

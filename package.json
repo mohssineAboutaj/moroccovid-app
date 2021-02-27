@@ -16,6 +16,7 @@
     "roboto-fontface": "*",
     "vue": "^2.6.11",
     "vue-chartjs": "^3.5.1",
+    "vue-js-counter": "^1.0.3",
     "vue-router": "^3.1.5",
     "vuetify": "^2.2.11"
   },
