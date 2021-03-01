@@ -18,8 +18,4 @@ module.exports.general = {
       console.log("dark mode: " + this.darkMode);
     },
   },
-  beforeMount() {
-    // miximize sidebar on large screens
-    this.drawer = window.innerWidth > 1200 ? true : false;
-  },
 };

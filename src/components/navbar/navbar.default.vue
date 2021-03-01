@@ -6,8 +6,10 @@
       :clipped="clipped"
       :clipped-right="clipped"
       :fixed="fixed"
-      app
       :right="right"
+      color="primary"
+      dark
+      app
     >
       <v-list>
         <v-list-item
@@ -32,7 +34,7 @@
         <v-icon>fa-stream</v-icon>
       </v-app-bar-nav-icon>
       <v-spacer />
-      <v-toolbar-title v-text="title" />
+      <v-toolbar-title>{{ title }}</v-toolbar-title>
       <v-spacer />
       <v-app-bar-nav-icon @click="switchTheme()">
         <v-icon>{{ darkMode ? "fas" : "far" }} fa-moon</v-icon>

@@ -1,11 +1,11 @@
 <template>
-  <v-footer :fixed="fixed" app>
+  <v-footer :fixed="fixed" app color="primary" dark>
     <v-row class="text-capitalize text-center">
-      <v-col cols="6" sm="12" md="6">
+      <v-col cols="12" md="6">
         <v-icon primary class="mr-2">far fa-copyright</v-icon>
         {{ new Date().getFullYear() }} - {{ title }}
       </v-col>
-      <v-col cols="6" sm="12" md="6">
+      <v-col cols="12" md="6">
         Created by <b>{{ author }}</b>
       </v-col>
     </v-row>

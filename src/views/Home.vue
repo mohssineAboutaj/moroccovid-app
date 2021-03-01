@@ -1,8 +1,25 @@
 <template>
   <v-container class="home">
     <v-card class="my-2 transparent" elevation="0">
-      <v-card-title class="text-capitalize mb-2">today statistics</v-card-title>
+      <v-card-title class="text-capitalize mb-2">
+        important phone numbers
+      </v-card-title>
       <v-card-text>
+        <v-row wrap>
+          <v-col
+            v-for="(num, k) in importantPhoneNumbers"
+            :key="k"
+            cols="12"
+            md="6"
+          >
+            <v-img :src="num"></v-img>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
+    <v-card class="my-2 transparent" elevation="0">
+      <v-card-title class="text-capitalize mb-2">today statistics</v-card-title>
+      <v-card-text v-if="isTodayStatsReady">
         <v-row v-if="statsInProgress" wrap>
           <v-col
             v-for="s in todayStatisticsExpectLength"
@@ -30,6 +47,11 @@
           </v-col>
         </v-row>
       </v-card-text>
+      <v-card-text v-else>
+        <h2 class="headline text-center text-capitalize">
+          come back after 18:00 GMT+1
+        </h2>
+      </v-card-text>
     </v-card>
     <v-card class="my-2 transparent" elevation="0">
       <v-card-title class="text-capitalize mb-2">statistics</v-card-title>
@@ -40,7 +62,7 @@
             :key="s"
             cols="12"
             md="6"
-            lg="3"
+            lg="4"
           >
             <v-skeleton-loader max-width="" type="image"></v-skeleton-loader>
           </v-col>
@@ -51,7 +73,7 @@
             :key="stat.title"
             cols="12"
             md="6"
-            lg="3"
+            lg="4"
           >
             <stats-card
               :color="stat.color"
@@ -90,6 +112,7 @@ export default {
     StatsCard,
   },
   data: () => ({
+    importantPhoneNumbers: [],
     apiURL: "https://moroccovid-19-api.herokuapp.com/",
     statsInProgress: true,
     statisticsExpectLength: 0,
@@ -103,7 +126,16 @@ export default {
       maintainAspectRatio: false,
     },
   }),
+  computed: {
+    isTodayStatsReady() {
+      return new Date().getUTCHours() + 1 >= 18;
+    },
+  },
   created() {
+    this.importantPhoneNumbers.push(
+      "http://www.covidmaroc.ma/Style%20Library/ACC/Affichesallocorona-01.jpg",
+      "http://www.covidmaroc.ma/Style%20Library/ACC/Affichesallocorona-02.jpg",
+    );
     this.$axios
       .get(this.apiURL)
       .then(({ data }) => {
@@ -122,19 +154,31 @@ export default {
           },
           {
             icon: "fa-users",
-            color: "primary",
+            color: "success",
+            title: "total recovered",
+            value: covid.recovered,
+          },
+          {
+            icon: "fa-users",
+            color: "secondary",
             title: "total tests",
             value: covid.tests,
           },
           {
             icon: "fa-users",
-            color: "primary",
+            color: "warning",
             title: "active",
             value: covid.active,
           },
           {
             icon: "fa-users",
-            color: "primary",
+            color: "deep-orange",
+            title: "critical",
+            value: covid.critical,
+          },
+          {
+            icon: "fa-users",
+            color: "error",
             title: "total deaths",
             value: covid.deaths,
           },
@@ -150,13 +194,13 @@ export default {
           },
           {
             icon: "fa-users",
-            color: "primary",
+            color: "success",
             title: "total recovered",
             value: covid.todayRecovered,
           },
           {
             icon: "fa-users",
-            color: "primary",
+            color: "error",
             title: "today deaths",
             value: covid.todayDeaths,
           },

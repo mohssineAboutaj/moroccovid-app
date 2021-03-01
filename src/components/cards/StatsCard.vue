@@ -41,8 +41,8 @@ export default {
       default: undefined,
     },
     value: {
-      type: String,
-      default: undefined,
+      type: Number,
+      default: NaN,
     },
     elevation: {
       type: Number,

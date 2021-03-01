@@ -9,7 +9,7 @@ Vue.use(Vuetify);
 
 export const globalColorsPallette = {
   primary: colors.blue.darken1,
-  secondary: colors.green.darken4,
+  secondary: colors.blue.lighten1,
   accent: colors.blue.accent1,
   error: colors.red.darken2,
   info: colors.green.lighten1,
