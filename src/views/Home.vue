@@ -12,7 +12,7 @@
             cols="12"
             md="6"
           >
-            <v-img :src="num"></v-img>
+            <v-img :src="require(`@/assets/${num}`)"></v-img>
           </v-col>
         </v-row>
       </v-card-text>
@@ -133,8 +133,8 @@ export default {
   },
   created() {
     this.importantPhoneNumbers.push(
-      "http://www.covidmaroc.ma/Style%20Library/ACC/Affichesallocorona-01.jpg",
-      "http://www.covidmaroc.ma/Style%20Library/ACC/Affichesallocorona-02.jpg",
+      "Affichesallocorona-01.jpg",
+      "Affichesallocorona-02.jpg",
     );
     this.$axios
       .get(this.apiURL)
