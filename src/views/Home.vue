@@ -146,37 +146,37 @@ export default {
       /// main stats
       this.statistics.push(
         {
-          icon: "fa-users",
+          icon: "fa-head-side-mask",
           color: "primary",
           title: this.$t("total cases"),
           value: covid.cases,
         },
         {
-          icon: "fa-users",
+          icon: "fa-heartbeat",
           color: "success",
           title: this.$t("total recovered cases"),
           value: covid.recovered,
         },
         {
-          icon: "fa-users",
+          icon: "fa-stethoscope",
           color: "secondary",
           title: this.$t("total tests cases"),
           value: covid.tests,
         },
         {
-          icon: "fa-users",
+          icon: "fa-head-side-cough",
           color: "warning",
           title: this.$t("active cases"),
           value: covid.active,
         },
         {
-          icon: "fa-users",
+          icon: "fa-procedures",
           color: "deep-orange",
           title: this.$t("critical cases"),
           value: covid.critical,
         },
         {
-          icon: "fa-users",
+          icon: "fa-bed",
           color: "error",
           title: this.$t("total deaths cases"),
           value: covid.deaths,
@@ -187,19 +187,19 @@ export default {
       if (this.isTodayStatsReady) {
         this.todayStatistics.push(
           {
-            icon: "fa-users",
+            icon: "fa-head-side-mask",
             color: "primary",
-            title: this.$t("today cases cases"),
+            title: this.$t("today cases"),
             value: covid.todayCases,
           },
           {
-            icon: "fa-users",
+            icon: "far fa-heart",
             color: "success",
             title: this.$t("today recovered cases"),
             value: covid.todayRecovered,
           },
           {
-            icon: "fa-users",
+            icon: "fa-bed",
             color: "error",
             title: this.$t("today deaths cases"),
             value: covid.todayDeaths,
