@@ -60,12 +60,12 @@ export default {
   data: () => ({
     dialog: false,
     imgToShow: "",
-    apiURL: "https://moroccovid-19-api.herokuapp.com/",
+    apiURL: "https://moroccovid-19-api.herokuapp.com/advice",
     images: [],
   }),
   beforeMount() {
-    this.$axios.get(this.apiURL).then(({ data }) => {
-      this.images = data.advice.images;
+    this.$axios.get(this.apiURL).then(({ data: { images } }) => {
+      this.images = images;
       this.imgToShow = this.images[0];
     });
   },

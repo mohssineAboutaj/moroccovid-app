@@ -113,7 +113,7 @@ export default {
   },
   data: () => ({
     importantPhoneNumbers: [],
-    apiURL: "https://moroccovid-19-api.herokuapp.com/",
+    apiBaseURL: "https://moroccovid-19-api.herokuapp.com/",
     statsInProgress: true,
     statisticsExpectLength: 0,
     statistics: [],
@@ -136,81 +136,80 @@ export default {
       "Affichesallocorona-01.jpg",
       "Affichesallocorona-02.jpg",
     );
+
+    // statistics
+    this.$axios.get(this.apiBaseURL + "covid").then(({ data: covid }) => {
+      /// main stats
+      this.statistics.push(
+        {
+          icon: "fa-users",
+          color: "primary",
+          title: "total cases",
+          value: covid.cases,
+        },
+        {
+          icon: "fa-users",
+          color: "success",
+          title: "total recovered",
+          value: covid.recovered,
+        },
+        {
+          icon: "fa-users",
+          color: "secondary",
+          title: "total tests",
+          value: covid.tests,
+        },
+        {
+          icon: "fa-users",
+          color: "warning",
+          title: "active",
+          value: covid.active,
+        },
+        {
+          icon: "fa-users",
+          color: "deep-orange",
+          title: "critical",
+          value: covid.critical,
+        },
+        {
+          icon: "fa-users",
+          color: "error",
+          title: "total deaths",
+          value: covid.deaths,
+        },
+      );
+
+      /// today stats
+      this.todayStatistics.push(
+        {
+          icon: "fa-users",
+          color: "primary",
+          title: "today cases",
+          value: covid.todayCases,
+        },
+        {
+          icon: "fa-users",
+          color: "success",
+          title: "total recovered",
+          value: covid.todayRecovered,
+        },
+        {
+          icon: "fa-users",
+          color: "error",
+          title: "today deaths",
+          value: covid.todayDeaths,
+        },
+      );
+
+      // set expected length for loading
+      this.statisticsExpectLength = this.statistics.length - 1;
+      this.todayStatisticsExpectLength = this.todayStatistics.length - 1;
+    });
+
+    // vaccine
     this.$axios
-      .get(this.apiURL)
-      .then(({ data }) => {
-        const {
-          vaccine: { timeline },
-          covid,
-        } = data;
-
-        // statistics
-        this.statistics.push(
-          {
-            icon: "fa-users",
-            color: "primary",
-            title: "total cases",
-            value: covid.cases,
-          },
-          {
-            icon: "fa-users",
-            color: "success",
-            title: "total recovered",
-            value: covid.recovered,
-          },
-          {
-            icon: "fa-users",
-            color: "secondary",
-            title: "total tests",
-            value: covid.tests,
-          },
-          {
-            icon: "fa-users",
-            color: "warning",
-            title: "active",
-            value: covid.active,
-          },
-          {
-            icon: "fa-users",
-            color: "deep-orange",
-            title: "critical",
-            value: covid.critical,
-          },
-          {
-            icon: "fa-users",
-            color: "error",
-            title: "total deaths",
-            value: covid.deaths,
-          },
-        );
-
-        // today statistics
-        this.todayStatistics.push(
-          {
-            icon: "fa-users",
-            color: "primary",
-            title: "today cases",
-            value: covid.todayCases,
-          },
-          {
-            icon: "fa-users",
-            color: "success",
-            title: "total recovered",
-            value: covid.todayRecovered,
-          },
-          {
-            icon: "fa-users",
-            color: "error",
-            title: "today deaths",
-            value: covid.todayDeaths,
-          },
-        );
-
-        // set expected length for loading
-        this.statisticsExpectLength = this.statistics.length - 1;
-        this.todayStatisticsExpectLength = this.todayStatistics.length - 1;
-
-        // vaccine
+      .get(this.apiBaseURL + "vaccine")
+      .then(({ data: { timeline } }) => {
         this.vaccineData = {
           labels: Object.keys(timeline),
           datasets: [
@@ -221,10 +220,8 @@ export default {
             },
           ],
         };
-      })
-      .catch(err => {
-        console.log(err);
       });
+
     this.backgroundColor = globalColorsPallette.primary;
     this.statsInProgress = false;
   },
