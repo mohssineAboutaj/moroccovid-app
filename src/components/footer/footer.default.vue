@@ -6,7 +6,7 @@
         {{ new Date().getFullYear() }} - {{ title }}
       </v-col>
       <v-col cols="12" md="6">
-        Created by <b>{{ author }}</b>
+        {{ $t("Created by") }} <b>{{ author }}</b>
       </v-col>
     </v-row>
   </v-footer>

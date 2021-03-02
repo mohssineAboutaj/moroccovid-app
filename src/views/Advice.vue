@@ -2,7 +2,7 @@
   <v-container>
     <v-card class="transparent">
       <v-card-title class="justify-center text-capitalize mb-2">
-        advices
+        {{ $t("advices") }}
       </v-card-title>
       <v-card-text>
         <v-row>

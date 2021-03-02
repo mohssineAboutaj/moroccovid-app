@@ -24,7 +24,7 @@
             <v-icon>fas fa-{{ item.icon }} </v-icon>
           </v-list-item-action>
           <v-list-item-content class="mx-2">
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
+            <v-list-item-title>{{ $t(item.title) }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -36,6 +36,23 @@
       <v-spacer />
       <v-toolbar-title>{{ title }}</v-toolbar-title>
       <v-spacer />
+
+      <v-menu offset-y>
+        <template v-slot:activator="{ on, attrs }">
+          <v-app-bar-nav-icon v-bind="attrs" v-on="on">
+            <v-icon>fa-globe</v-icon>
+          </v-app-bar-nav-icon>
+        </template>
+        <v-list>
+          <v-list-item
+            v-for="(item, index) in langs"
+            :key="index"
+            @click="changeLang(item.code)"
+          >
+            <v-list-item-title>{{ item.label }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
       <v-app-bar-nav-icon @click="switchTheme()">
         <v-icon>{{ darkMode ? "fas" : "far" }} fa-moon</v-icon>
       </v-app-bar-nav-icon>
@@ -48,5 +65,19 @@ import { general } from "@/mixins/navbar.js";
 
 export default {
   mixins: [general],
+  data: () => ({
+    langs: [
+      { code: "en", label: "English" },
+      { code: "ar", label: "العربية" },
+      { code: "fr", label: "Français" },
+    ],
+    rtlLangs: ["ar"],
+  }),
+  methods: {
+    changeLang(langCode) {
+      this.$i18n.locale = this.$vuetify.lang.current = langCode;
+      this.$vuetify.rtl = this.right = this.rtlLangs.includes(langCode);
+    },
+  },
 };
 </script>

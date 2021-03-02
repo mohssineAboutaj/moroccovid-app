@@ -2,7 +2,7 @@
   <v-container class="home">
     <v-card class="my-2 transparent" elevation="0">
       <v-card-title class="text-capitalize mb-2">
-        important phone numbers
+        {{ $t("important phone numbers") }}
       </v-card-title>
       <v-card-text>
         <v-row wrap>
@@ -18,7 +18,9 @@
       </v-card-text>
     </v-card>
     <v-card class="my-2 transparent" elevation="0">
-      <v-card-title class="text-capitalize mb-2">today statistics</v-card-title>
+      <v-card-title class="text-capitalize mb-2">
+        {{ $t("today statistics") }}
+      </v-card-title>
       <v-card-text v-if="isTodayStatsReady">
         <v-row v-if="statsInProgress" wrap>
           <v-col
@@ -49,12 +51,14 @@
       </v-card-text>
       <v-card-text v-else>
         <h2 class="headline text-center text-capitalize">
-          come back after 18:00 GMT+1
+          {{ $t("come back after") }} 18:00 GMT+1
         </h2>
       </v-card-text>
     </v-card>
     <v-card class="my-2 transparent" elevation="0">
-      <v-card-title class="text-capitalize mb-2">statistics</v-card-title>
+      <v-card-title class="text-capitalize mb-2">
+        {{ $t("statistics") }}
+      </v-card-title>
       <v-card-text>
         <v-row v-if="statsInProgress" wrap>
           <v-col
@@ -88,7 +92,7 @@
     </v-card>
     <v-card class="my-2 " max-height="500" elevation="4">
       <v-card-title class="text-capitalize">
-        vaccinated people growth
+        {{ $t("vaccinated people growth") }}
       </v-card-title>
       <v-card-text>
         <line-chart-component
@@ -144,66 +148,71 @@ export default {
         {
           icon: "fa-users",
           color: "primary",
-          title: "total cases",
+          title: this.$t("total cases"),
           value: covid.cases,
         },
         {
           icon: "fa-users",
           color: "success",
-          title: "total recovered",
+          title: this.$t("total recovered cases"),
           value: covid.recovered,
         },
         {
           icon: "fa-users",
           color: "secondary",
-          title: "total tests",
+          title: this.$t("total tests cases"),
           value: covid.tests,
         },
         {
           icon: "fa-users",
           color: "warning",
-          title: "active",
+          title: this.$t("active cases"),
           value: covid.active,
         },
         {
           icon: "fa-users",
           color: "deep-orange",
-          title: "critical",
+          title: this.$t("critical cases"),
           value: covid.critical,
         },
         {
           icon: "fa-users",
           color: "error",
-          title: "total deaths",
+          title: this.$t("total deaths cases"),
           value: covid.deaths,
         },
       );
 
       /// today stats
-      this.todayStatistics.push(
-        {
-          icon: "fa-users",
-          color: "primary",
-          title: "today cases",
-          value: covid.todayCases,
-        },
-        {
-          icon: "fa-users",
-          color: "success",
-          title: "total recovered",
-          value: covid.todayRecovered,
-        },
-        {
-          icon: "fa-users",
-          color: "error",
-          title: "today deaths",
-          value: covid.todayDeaths,
-        },
-      );
+      if (this.isTodayStatsReady) {
+        this.todayStatistics.push(
+          {
+            icon: "fa-users",
+            color: "primary",
+            title: this.$t("today cases cases"),
+            value: covid.todayCases,
+          },
+          {
+            icon: "fa-users",
+            color: "success",
+            title: this.$t("today recovered cases"),
+            value: covid.todayRecovered,
+          },
+          {
+            icon: "fa-users",
+            color: "error",
+            title: this.$t("today deaths cases"),
+            value: covid.todayDeaths,
+          },
+        );
+      }
 
       // set expected length for loading
       this.statisticsExpectLength = this.statistics.length - 1;
       this.todayStatisticsExpectLength = this.todayStatistics.length - 1;
+
+      // for skeleton loader
+      this.statsInProgress = false;
     });
 
     // vaccine
@@ -214,7 +223,7 @@ export default {
           labels: Object.keys(timeline),
           datasets: [
             {
-              label: "vaccinated people",
+              label: this.$t("vaccinated people"),
               backgroundColor: this.backgroundColor,
               data: Object.values(timeline),
             },
@@ -223,7 +232,6 @@ export default {
       });
 
     this.backgroundColor = globalColorsPallette.primary;
-    this.statsInProgress = false;
   },
 };
 </script>
