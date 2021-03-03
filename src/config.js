@@ -32,6 +32,16 @@ let links = [
       ),
   },
   {
+    icon: "newspaper",
+    title: "official news",
+    to: "/news",
+    component: () =>
+      import(
+        /* webpackChunkName: "News" */
+        `@/views/News.vue`
+      ),
+  },
+  {
     icon: "info-circle",
     title: "About",
     to: "/about",

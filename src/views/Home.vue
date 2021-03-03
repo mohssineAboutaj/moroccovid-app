@@ -1,6 +1,6 @@
 <template>
   <v-container class="home">
-    <v-card class="my-2 transparent" elevation="0">
+    <v-card class="mb-6 mt-0 transparent" elevation="0" id="phones">
       <v-card-title class="text-capitalize mb-2">
         {{ $t("important phone numbers") }}
       </v-card-title>
@@ -17,7 +17,7 @@
         </v-row>
       </v-card-text>
     </v-card>
-    <v-card class="my-2 transparent" elevation="0">
+    <v-card class="mb-6 mt-0 transparent" elevation="0" id="today">
       <v-card-title class="text-capitalize mb-2">
         {{ $t("today statistics") }}
       </v-card-title>
@@ -55,7 +55,7 @@
         </h2>
       </v-card-text>
     </v-card>
-    <v-card class="my-2 transparent" elevation="0">
+    <v-card class="mb-6 mt-0 transparent" elevation="0" id="total">
       <v-card-title class="text-capitalize mb-2">
         {{ $t("statistics") }}
       </v-card-title>
@@ -90,7 +90,7 @@
         </v-row>
       </v-card-text>
     </v-card>
-    <v-card class="my-2 " max-height="500" elevation="4">
+    <v-card class="mb-6 mt-0" max-height="500" elevation="4" id="vaccine">
       <v-card-title class="text-capitalize">
         {{ $t("vaccinated people growth") }}
       </v-card-title>
@@ -101,29 +101,72 @@
         ></line-chart-component>
       </v-card-text>
     </v-card>
+    <v-card class="mb-6 mt-0 transparent" elevation="0" id="distribution">
+      <v-card-title class="text-capitalize">
+        {{ $t("distribution of cases") }}
+      </v-card-title>
+      <v-card-text>
+        <v-row>
+          <v-col cols="12" md="6">
+            <v-card class="my-2" max-height="500" elevation="4">
+              <v-card-title>{{ $t("cases per population") }}</v-card-title>
+              <v-card-text>
+                <pie-chart-component
+                  :chartData="totalCasesPerPopularity"
+                  :options="options"
+                ></pie-chart-component>
+              </v-card-text>
+            </v-card>
+          </v-col>
+          <v-col cols="12" md="6">
+            <v-card class="my-2" max-height="500" elevation="4">
+              <v-card-title>
+                {{ $t("distribution of cases") }}
+              </v-card-title>
+              <v-card-text>
+                <pie-chart-component
+                  :chartData="distributionCasesPerTotal"
+                  :options="options"
+                ></pie-chart-component>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
   </v-container>
 </template>
 
 <script>
 import StatsCard from "@/components/cards/StatsCard";
-import { LineChartComponent } from "@/components/general/charts";
+import {
+  LineChartComponent,
+  PieChartComponent,
+} from "@/components/general/charts";
 import { globalColorsPallette } from "@/plugins/vuetify";
 
 export default {
   name: "Home",
   components: {
     LineChartComponent,
+    PieChartComponent,
     StatsCard,
   },
   data: () => ({
-    importantPhoneNumbers: [],
+    /// api
     apiBaseURL: "https://moroccovid-19-api.herokuapp.com/",
+    /// progress & loading
     statsInProgress: true,
     statisticsExpectLength: 0,
+    todayStatisticsExpectLength: 0,
+    /// data
+    importantPhoneNumbers: [],
     statistics: [],
     todayStatistics: [],
-    todayStatisticsExpectLength: 0,
     vaccineData: {},
+    totalCasesPerPopularity: {},
+    distributionCasesPerTotal: {},
+    /// for charts
     backgroundColor: "",
     options: {
       responsive: true,
@@ -213,6 +256,33 @@ export default {
 
       // for skeleton loader
       this.statsInProgress = false;
+
+      // cases per population
+      this.totalCasesPerPopularity = {
+        labels: [this.$t("total cases"), this.$t("population")],
+        datasets: [
+          {
+            label: this.$t("total cases"),
+            backgroundColor: [globalColorsPallette.error, this.backgroundColor],
+            data: [covid.cases, covid.population],
+          },
+        ],
+      };
+
+      // distribution of cases
+      this.distributionCasesPerTotal = {
+        labels: [],
+        datasets: [{ backgroundColor: [], data: [] }],
+      };
+      [1, 3, 4, 5].forEach(n => {
+        this.distributionCasesPerTotal.labels.push(this.statistics[n].title);
+        this.distributionCasesPerTotal.datasets[0].backgroundColor.push(
+          globalColorsPallette[this.statistics[n].color],
+        );
+        this.distributionCasesPerTotal.datasets[0].data.push(
+          this.statistics[n].value,
+        );
+      });
     });
 
     // vaccine

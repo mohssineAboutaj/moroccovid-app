@@ -34,7 +34,15 @@
         <v-icon>fa-stream</v-icon>
       </v-app-bar-nav-icon>
       <v-spacer />
-      <v-toolbar-title>{{ title }}</v-toolbar-title>
+      <v-toolbar-title class="hidden-sm-and-down">{{ title }}</v-toolbar-title>
+      <v-toolbar-title class="hidden-md-and-up">
+        {{
+          title
+            .split(" ")
+            .map(s => s[0])
+            .join(" ")
+        }}
+      </v-toolbar-title>
       <v-spacer />
 
       <v-menu offset-y>
@@ -56,6 +64,31 @@
       <v-app-bar-nav-icon @click="switchTheme()">
         <v-icon>{{ darkMode ? "fas" : "far" }} fa-moon</v-icon>
       </v-app-bar-nav-icon>
+
+      <template v-slot:extension v-if="$route.path === '/'">
+        <v-tabs align-with-title show-arrows fixed-tabs icons-and-text>
+          <v-tab @click="$vuetify.goTo('#phones')">
+            <span class="mt-2 mb-4">{{ $t("phones") }}</span>
+            <v-icon>fa-phone</v-icon>
+          </v-tab>
+          <v-tab @click="$vuetify.goTo('#today')">
+            <span class="mt-2 mb-4">{{ $t("today") }}</span>
+            <v-icon>fa-rss</v-icon>
+          </v-tab>
+          <v-tab @click="$vuetify.goTo('#total')">
+            <span class="mt-2 mb-4">{{ $t("total") }}</span>
+            <v-icon>fa-database</v-icon>
+          </v-tab>
+          <v-tab @click="$vuetify.goTo('#vaccinated')">
+            <span class="mt-2 mb-4">{{ $t("vaccinated") }}</span>
+            <v-icon>fa-thermometer</v-icon>
+          </v-tab>
+          <v-tab @click="$vuetify.goTo('#distribution')">
+            <span class="mt-2 mb-4">{{ $t("distribution") }}</span>
+            <v-icon>fa-chart-pie</v-icon>
+          </v-tab>
+        </v-tabs>
+      </template>
     </v-app-bar>
   </div>
 </template>
@@ -76,7 +109,9 @@ export default {
   methods: {
     changeLang(langCode) {
       this.$i18n.locale = this.$vuetify.lang.current = langCode;
-      this.$vuetify.rtl = this.right = this.rtlLangs.includes(langCode);
+      this.$vuetify.rtl = this.right = this.rightDrawer = this.rtlLangs.includes(
+        langCode,
+      );
     },
   },
 };

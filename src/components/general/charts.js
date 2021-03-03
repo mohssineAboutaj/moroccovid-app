@@ -1,8 +1,8 @@
-import { mixins, Line, Bar } from "vue-chartjs";
+import { mixins, Pie, Line } from "vue-chartjs";
 const { reactiveProp } = mixins;
 
-export const LineChartComponent = {
-  extends: Line,
+export const PieChartComponent = {
+  extends: Pie,
   mixins: [reactiveProp],
   props: ["options"],
   mounted() {
@@ -12,8 +12,8 @@ export const LineChartComponent = {
   },
 };
 
-export const BarChartComponent = {
-  extends: Bar,
+export const LineChartComponent = {
+  extends: Line,
   mixins: [reactiveProp],
   props: ["options"],
   mounted() {
