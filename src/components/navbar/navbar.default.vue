@@ -65,7 +65,7 @@
         <v-icon>{{ darkMode ? "fas" : "far" }} fa-moon</v-icon>
       </v-app-bar-nav-icon>
 
-      <template v-slot:extension v-if="$route.path === '/'">
+      <template v-slot:extension v-if="$route.name === 'Home'">
         <v-tabs align-with-title show-arrows fixed-tabs icons-and-text>
           <v-tab @click="$vuetify.goTo('#phones')">
             <span class="mt-2 mb-4">{{ $t("phones") }}</span>
