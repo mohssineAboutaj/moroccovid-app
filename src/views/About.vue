@@ -4,12 +4,8 @@
       <v-card-title class="justify-center text-capitalize mb-2">
         {{ $t("about") }}
       </v-card-title>
-      <v-img
-        contain
-        height="auto"
-        src="http://www.covidmaroc.ma/SiteCollectionImages/588%20-BAN-Minist%C3%A8re%20int%C3%A9rieur%20-%20Campagne%20Wi9ayatouna-(1500x500)VAR.jpg"
-      ></v-img>
-      <v-card-text class="caption">
+      <v-img contain height="auto" :src="require('@/assets/about.jpg')"></v-img>
+      <v-card-text class="headline">
         {{ $t("app description") }}
       </v-card-text>
     </v-card>
