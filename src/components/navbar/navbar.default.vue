@@ -29,7 +29,15 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar :clipped-left="clipped" :fixed="fixed" color="primary" dark app>
+
+    <v-app-bar
+      :clipped-left="clipped"
+      :fixed="fixed"
+      color="primary"
+      dark
+      app
+      extension-height="70"
+    >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer">
         <v-icon>fa-stream</v-icon>
       </v-app-bar-nav-icon>
@@ -66,26 +74,24 @@
       </v-app-bar-nav-icon>
 
       <template v-slot:extension v-if="$route.name === 'Home'">
-        <v-tabs align-with-title show-arrows fixed-tabs icons-and-text>
-          <v-tab @click="$vuetify.goTo('#phones')">
-            <span class="mt-2 mb-4">{{ $t("phones") }}</span>
-            <v-icon>fa-phone</v-icon>
-          </v-tab>
-          <v-tab @click="$vuetify.goTo('#today')">
-            <span class="mt-2 mb-4">{{ $t("today") }}</span>
-            <v-icon>fa-rss</v-icon>
-          </v-tab>
-          <v-tab @click="$vuetify.goTo('#total')">
-            <span class="mt-2 mb-4">{{ $t("total") }}</span>
-            <v-icon>fa-database</v-icon>
-          </v-tab>
-          <v-tab @click="$vuetify.goTo('#vaccinated')">
-            <span class="mt-2 mb-4">{{ $t("vaccinated") }}</span>
-            <v-icon>fa-thermometer</v-icon>
-          </v-tab>
-          <v-tab @click="$vuetify.goTo('#distribution')">
-            <span class="mt-2 mb-4">{{ $t("distribution") }}</span>
-            <v-icon>fa-chart-pie</v-icon>
+        <v-tabs
+          align-with-title
+          show-arrows
+          fixed-tabs
+          icons-and-text
+          optional
+          dark
+          active-class="font-weight-bold white--text"
+          v-model="activeTab"
+          hide-slider
+        >
+          <v-tab
+            v-for="(tab, j) in tabsList"
+            :key="j"
+            @click="$vuetify.goTo('#' + tab.label)"
+          >
+            <span>{{ $t(tab.label) }}</span>
+            <v-icon class="mb-2">fa-{{ tab.icon }}</v-icon>
           </v-tab>
         </v-tabs>
       </template>
@@ -99,12 +105,19 @@ import { general } from "@/mixins/navbar.js";
 export default {
   mixins: [general],
   data: () => ({
+    activeTab: 0,
     langs: [
       { code: "en", label: "English" },
       { code: "ar", label: "العربية" },
       { code: "fr", label: "Français" },
     ],
     rtlLangs: ["ar"],
+    tabsList: [
+      { icon: "phone", label: "phones" },
+      { icon: "rss", label: "today" },
+      { icon: "thermometer", label: "vaccinated" },
+      { icon: "chart-pie", label: "distribution" },
+    ],
   }),
   methods: {
     changeLang(langCode) {
