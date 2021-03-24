@@ -4,6 +4,11 @@
  */
 const title = "Morocco Covid Statistics";
 
+/**
+ * @type {String} website author
+ */
+const author = "Mohssine Aboutaj";
+
 // links & routes
 /**
  * @type {Array} all routes in the application
@@ -54,4 +59,4 @@ let links = [
 ];
 
 // exporting
-export { title, links };
+export { title, links, author };

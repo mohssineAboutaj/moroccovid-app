@@ -90,7 +90,7 @@
         </v-row>
       </v-card-text>
     </v-card>
-    <v-card class="mb-6 mt-0" max-height="500" elevation="4" id="vaccine">
+    <v-card class="mb-6 mt-0" max-height="500" elevation="4" id="vaccinated">
       <v-card-title class="text-capitalize">
         {{ $t("vaccinated people growth") }}
       </v-card-title>

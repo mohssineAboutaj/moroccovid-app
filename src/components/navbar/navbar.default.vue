@@ -37,6 +37,7 @@
       dark
       app
       extension-height="70"
+      hide-on-scroll
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer">
         <v-icon>fa-stream</v-icon>
@@ -56,7 +57,7 @@
       <v-menu offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-app-bar-nav-icon v-bind="attrs" v-on="on">
-            <v-icon>fa-globe</v-icon>
+            <v-icon>fa-language</v-icon>
           </v-app-bar-nav-icon>
         </template>
         <v-list>
@@ -74,58 +75,27 @@
       </v-app-bar-nav-icon>
 
       <template v-slot:extension v-if="$route.name === 'Home'">
-        <v-tabs
-          align-with-title
-          show-arrows
-          fixed-tabs
-          icons-and-text
-          optional
-          dark
-          active-class="font-weight-bold white--text"
-          v-model="activeTab"
-          hide-slider
-        >
-          <v-tab
+        <v-bottom-navigation class="elevation-0 pa-0 ma-0 transparent">
+          <v-btn
             v-for="(tab, j) in tabsList"
             :key="j"
+            depressed
+            :class="['pa-1', 'transparent', 'elevation-0']"
             @click="$vuetify.goTo('#' + tab.label)"
           >
-            <span>{{ $t(tab.label) }}</span>
+            <span class="text-capitalize">{{ $t(tab.label) }}</span>
             <v-icon class="mb-2">fa-{{ tab.icon }}</v-icon>
-          </v-tab>
-        </v-tabs>
+          </v-btn>
+        </v-bottom-navigation>
       </template>
     </v-app-bar>
   </div>
 </template>
 
 <script>
-import { general } from "@/mixins/navbar.js";
+import { navbar } from "@/mixins";
 
 export default {
-  mixins: [general],
-  data: () => ({
-    activeTab: 0,
-    langs: [
-      { code: "en", label: "English" },
-      { code: "ar", label: "العربية" },
-      { code: "fr", label: "Français" },
-    ],
-    rtlLangs: ["ar"],
-    tabsList: [
-      { icon: "phone", label: "phones" },
-      { icon: "rss", label: "today" },
-      { icon: "thermometer", label: "vaccinated" },
-      { icon: "chart-pie", label: "distribution" },
-    ],
-  }),
-  methods: {
-    changeLang(langCode) {
-      this.$i18n.locale = this.$vuetify.lang.current = langCode;
-      this.$vuetify.rtl = this.right = this.rightDrawer = this.rtlLangs.includes(
-        langCode,
-      );
-    },
-  },
+  mixins: [navbar],
 };
 </script>
