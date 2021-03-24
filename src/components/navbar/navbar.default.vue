@@ -75,12 +75,12 @@
       </v-app-bar-nav-icon>
 
       <template v-slot:extension v-if="$route.name === 'Home'">
-        <v-bottom-navigation class="elevation-0 pa-0 ma-0 transparent">
+        <v-bottom-navigation class="elevation-0 pa-0 ma-0 transparent" grow>
           <v-btn
             v-for="(tab, j) in tabsList"
             :key="j"
             depressed
-            :class="['pa-1', 'transparent', 'elevation-0']"
+            :class="['pa-2', 'transparent', 'elevation-0']"
             @click="$vuetify.goTo('#' + tab.label)"
           >
             <span class="text-capitalize">{{ $t(tab.label) }}</span>

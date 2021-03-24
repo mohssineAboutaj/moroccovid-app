@@ -1,6 +1,6 @@
 {
   "name": "moroccovid-app",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "description": "A basic vue & vuetify covid tracking app for morocco",
   "author": "Mohssine Aboutaj",
   "scripts": {
