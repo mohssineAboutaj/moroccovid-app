@@ -25,13 +25,29 @@ export const navbar = {
       { icon: "thermometer", label: "vaccinated" },
       { icon: "chart-pie", label: "distribution" },
     ],
+    activeTab: 0,
+    selectedLang: "en",
   }),
   beforeMount() {
+    this.setLocalStorage({
+      darkMode: this.darkMode,
+      lang: this.$i18n.locale,
+    });
+  },
+  mounted() {
     this.darkMode = this.getLocalStorage("darkMode");
     this.$vuetify.theme.dark = this.darkMode;
     this.changeLang(this.getLocalStorage("lang"));
+    this.selectedLang = this.$i18n.locale;
   },
   methods: {
+    setLocalStorage(obj) {
+      Object.keys(obj).forEach(key => {
+        if (!this.getLocalStorage(key)) {
+          this.updateLocalStorage(key, obj[key]);
+        }
+      });
+    },
     switchTheme() {
       this.$vuetify.theme.dark = this.darkMode = !this.$vuetify.theme.dark;
       this.updateLocalStorage("darkMode", this.darkMode);

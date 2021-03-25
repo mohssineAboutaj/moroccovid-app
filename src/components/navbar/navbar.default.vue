@@ -28,6 +28,37 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+
+      <template v-slot:append>
+        <div class="pa-2">
+          <v-subheader class="text-capitalize">follow us</v-subheader>
+          <v-row v-if="!miniVariant" class="justify-space-around">
+            <v-col
+              v-for="(c, i) in contacts"
+              :key="`follow-key-${i}`"
+              cols="auto"
+            >
+              <v-tooltip top>
+                <template v-slot:activator="{ on }">
+                  <v-btn
+                    :href="c.link"
+                    target="_blanc"
+                    v-on="on"
+                    :style="`background-color: ${c.color}`"
+                    depressed
+                    fab
+                    dark
+                    small
+                  >
+                    <v-icon>fab fa-{{ c.icon }}</v-icon>
+                  </v-btn>
+                </template>
+                <span class="text-capitalize">{{ c.label }}</span>
+              </v-tooltip>
+            </v-col>
+          </v-row>
+        </div>
+      </template>
     </v-navigation-drawer>
 
     <v-app-bar
@@ -61,13 +92,16 @@
           </v-app-bar-nav-icon>
         </template>
         <v-list>
-          <v-list-item
-            v-for="(item, index) in langs"
-            :key="index"
-            @click="changeLang(item.code)"
-          >
-            <v-list-item-title>{{ item.label }}</v-list-item-title>
-          </v-list-item>
+          <v-list-item-group v-model="selectedLang" color="primary">
+            <v-list-item
+              v-for="(item, index) in langs"
+              :key="index"
+              @click="changeLang(item.code)"
+              :value="item.code"
+            >
+              <v-list-item-title>{{ item.label }}</v-list-item-title>
+            </v-list-item>
+          </v-list-item-group>
         </v-list>
       </v-menu>
       <v-app-bar-nav-icon @click="switchTheme()">
@@ -75,18 +109,25 @@
       </v-app-bar-nav-icon>
 
       <template v-slot:extension v-if="$route.name === 'Home'">
-        <v-bottom-navigation class="elevation-0 pa-0 ma-0 transparent" grow>
-          <v-btn
+        <v-tabs
+          v-model="activeTab"
+          background-color="primary"
+          centered
+          dark
+          icons-and-text
+          show-arrows
+        >
+          <v-tabs-slider></v-tabs-slider>
+          <v-tab
             v-for="(tab, j) in tabsList"
             :key="j"
-            depressed
-            :class="['pa-2', 'transparent', 'elevation-0']"
+            :href="'#' + tab.label"
             @click="$vuetify.goTo('#' + tab.label)"
           >
             <span class="text-capitalize">{{ $t(tab.label) }}</span>
             <v-icon class="mb-2">fa-{{ tab.icon }}</v-icon>
-          </v-btn>
-        </v-bottom-navigation>
+          </v-tab>
+        </v-tabs>
       </template>
     </v-app-bar>
   </div>
@@ -97,5 +138,30 @@ import { navbar } from "@/mixins";
 
 export default {
   mixins: [navbar],
+  data: () => ({
+    contacts: [
+      {
+        label: "follow me on linkedin",
+        icon: "linkedin",
+        color: "#0077b5",
+        link: "https://www.linkedin.com/in/mohssineAboutaj",
+        isBrand: true,
+      },
+      {
+        label: "follow me on twitter",
+        icon: "twitter",
+        color: "#1da1f2",
+        link: "https://twitter.com/mohssineAboutaj",
+        isBrand: true,
+      },
+      {
+        label: "follow me on github",
+        icon: "github",
+        color: "#333",
+        link: "https://github.com/mohssineAboutaj",
+        isBrand: true,
+      },
+    ],
+  }),
 };
 </script>
