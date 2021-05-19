@@ -17,6 +17,7 @@
         </v-row>
       </v-card-text>
     </v-card>
+
     <v-card class="mb-6 mt-0 transparent" elevation="0" id="today">
       <v-card-title class="text-capitalize mb-2">
         {{ $t("today statistics") }}
@@ -42,7 +43,7 @@
             <stats-card
               :color="stat.color"
               :icon="stat.icon"
-              :title="stat.title"
+              :title="$t(stat.title)"
               :value="stat.value"
               :elevation="5"
             />
@@ -55,6 +56,7 @@
         </h2>
       </v-card-text>
     </v-card>
+
     <v-card class="mb-6 mt-0 transparent" elevation="0" id="total">
       <v-card-title class="text-capitalize mb-2">
         {{ $t("statistics") }}
@@ -82,7 +84,7 @@
             <stats-card
               :color="stat.color"
               :icon="stat.icon"
-              :title="stat.title"
+              :title="$t(stat.title)"
               :value="stat.value"
               :elevation="5"
             />
@@ -90,6 +92,7 @@
         </v-row>
       </v-card-text>
     </v-card>
+
     <v-card class="mb-6 mt-0" max-height="500" elevation="4" id="vaccinated">
       <v-card-title class="text-capitalize">
         {{ $t("vaccinated people growth") }}
@@ -101,6 +104,7 @@
         ></line-chart-component>
       </v-card-text>
     </v-card>
+
     <v-card class="mb-6 mt-0 transparent" elevation="0" id="distribution">
       <v-card-title class="text-capitalize">
         {{ $t("distribution of cases") }}
@@ -191,37 +195,37 @@ export default {
         {
           icon: "fa-head-side-mask",
           color: "primary",
-          title: this.$t("total cases"),
+          title: "total cases",
           value: covid.cases,
         },
         {
           icon: "fa-heartbeat",
           color: "success",
-          title: this.$t("total recovered cases"),
+          title: "total recovered cases",
           value: covid.recovered,
         },
         {
           icon: "fa-stethoscope",
           color: "secondary",
-          title: this.$t("total tests cases"),
+          title: "total tests cases",
           value: covid.tests,
         },
         {
           icon: "fa-head-side-cough",
           color: "warning",
-          title: this.$t("active cases"),
+          title: "active cases",
           value: covid.active,
         },
         {
           icon: "fa-procedures",
           color: "deep-orange",
-          title: this.$t("critical cases"),
+          title: "critical cases",
           value: covid.critical,
         },
         {
           icon: "fa-bed",
           color: "error",
-          title: this.$t("total deaths cases"),
+          title: "total deaths cases",
           value: covid.deaths,
         },
       );
@@ -232,19 +236,19 @@ export default {
           {
             icon: "fa-head-side-mask",
             color: "primary",
-            title: this.$t("today cases"),
+            title: "today cases",
             value: covid.todayCases,
           },
           {
             icon: "far fa-heart",
             color: "success",
-            title: this.$t("today recovered cases"),
+            title: "today recovered cases",
             value: covid.todayRecovered,
           },
           {
             icon: "fa-bed",
             color: "error",
-            title: this.$t("today deaths cases"),
+            title: "today deaths cases",
             value: covid.todayDeaths,
           },
         );
